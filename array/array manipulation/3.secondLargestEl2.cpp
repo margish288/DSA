@@ -3,8 +3,9 @@
 using namespace std;
 
 // repeating array
-int largestElementIdx(int arr[], int size) {
+int largestElement(int arr[], int size) {
   int maximum = INT_MIN;
+  int secMax = INT_MIN;
 
   for(int i=0; i<size; i++) {
     if(arr[i] > maximum) {
@@ -12,7 +13,13 @@ int largestElementIdx(int arr[], int size) {
     }
   }
 
-  return maximum;
+  for(int i=0; i<size; i++) {
+    if(arr[i] > secMax && arr[i] != maximum) {
+      secMax = i;
+    }
+  }
+
+  return secMax;
 }
 
 int main () {
@@ -24,17 +31,8 @@ int main () {
     cin>>arr[i];
   }
 
-  int idx = largestElementIdx(arr, n);
-  int el = arr[idx];
-  for(int i=0; i<n; i++) {
-    if(el == arr[i]) {
-      arr[i] = -1;
-    }
-
-  }
-
-  idx = largestElementIdx(arr, n);
-  cout<<arr[idx]<<endl;
+  int el = largestElement(arr, n);
+  cout<<el<<endl;
 
   return 0;
 }
